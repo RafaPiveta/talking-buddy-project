@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Talking Buddy - Assistente conversacional offline</title>
+  <meta name="description" content="Talking Buddy: assistente de voz local, privado e offline. TCC de Engenharia da Computação, PUCPR." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0d0c'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%237CFFB2'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260630-25" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="brand">
+      <span class="brand__dot"></span>
+      <span>Talking Buddy</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#sobre">Sobre</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#case">Case 3D</a>
+      <a href="#software">Software</a>
+      <a href="#experimente">Experimente</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#autores">Autores</a>
+      <a href="https://drive.proton.me/urls/X1234H4VKG#nrAXoGPNZxoI" target="_blank" rel="noopener" class="nav__cta nav__cta--doc">Relatório</a>
+      <a href="https://github.com/RafaPiveta/Talking-Buddy" target="_blank" rel="noopener" class="nav__cta">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <div class="eyebrow">TCC · Engenharia da Computação · Edge AI</div>
+        <h1>Um assistente virtual que fala com você <em id="hero-keyword">offline</em></h1>
+        <p class="lede">
+          O Talking Buddy é um protótipo de assistente de voz offline: escuta, transcreve,
+          interpreta e responde localmente em um Raspberry Pi 5, preservando os dados do usuário.
+        </p>
+        <div class="hero__cta">
+          <a href="#experimente" class="btn btn--primary">Experimentar demo</a>
+          <a href="#resultados" class="btn btn--ghost">Ver resultados</a>
+        </div>
+      </div>
+      <figure class="hero__media">
+        <img src="assets/images/Case3D/case3d_028.jpeg" alt="Protótipo final do Talking Buddy ligado" />
+      </figure>
+    </div>
+  </section>
+
+  <section id="sobre" class="section">
+    <div class="wrap two-col">
+      <div>
+        <div class="eyebrow">O projeto</div>
+        <h2>Privacidade por arquitetura, não por promessa.</h2>
+        <p>
+          Assistentes de voz comerciais normalmente dependem da nuvem para reconhecer fala,
+          processar linguagem e sintetizar respostas. O objetivo deste TCC foi validar uma
+          alternativa em borda: um pipeline local, com modelos quantizados e hardware acessível.
+        </p>
+        <p>
+          Em vez de treinar modelos do zero, o projeto integrou tecnologias maduras em uma
+          arquitetura modular. O Raspberry Pi 5 coordena o áudio, a interface touch, perfis por
+          RFID, banco SQLite e os modelos de IA que compõem a conversa.
+        </p>
+        <ul class="bullets">
+          <li>Wake word com openWakeWord e comando "hey buddy"</li>
+          <li>STT com Whisper.cpp, LLM com Gemma 3:1B via Ollama e TTS com Supertonic 2</li>
+          <li>Perfis por RFID com idioma, personalidade, histórico e especialização RAG</li>
+          <li>Testes de latência, autonomia, estabilidade térmica e experiência multimodal</li>
+        </ul>
+        <div class="doc-callout">
+          <div>
+            <span class="doc-callout__tag">Documento</span>
+            <h3>Relatório técnico final</h3>
+            <p>Documento completo do TCC publicado para consulta pública.</p>
+          </div>
+          <a class="doc-callout__status" href="https://drive.proton.me/urls/X1234H4VKG#nrAXoGPNZxoI" target="_blank" rel="noopener">Abrir relatório</a>
+        </div>
+      </div>
+      <figure class="frame">
+        <img src="assets/images/Apresentacao/apresentacao-final_004.jpeg" alt="Autores segurando o Talking Buddy na apresentação final" />
+      </figure>
+    </div>
+  </section>
+
+  <section id="hardware" class="section section--alt">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Hardware</div>
+        <h2>Um computador de placa única orquestrando tudo.</h2>
+        <p class="lead">
+          A seleção abaixo resume os componentes listados no relatório técnico: processamento,
+          energia, captura, áudio, identificação por RFID e interface touch.
+        </p>
+      </header>
+
+      <div class="hardware-grid">
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_01_raspberry-pi-5.jpeg" alt="Raspberry Pi 5 usado como computador central do protótipo" /></figure>
+          <h3>Raspberry Pi 5 · 8 GB</h3>
+          <p>Computador de placa única que executa a interface, o orquestrador, banco local e chamadas aos modelos de IA.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_02_active-cooler.jpeg" alt="Cooler ativo oficial do Raspberry Pi 5" /></figure>
+          <h3>Active Cooler</h3>
+          <p>Arrefecimento dedicado para manter estabilidade térmica durante inferência, síntese de voz e uso contínuo.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_03_ups-hat.png" alt="Módulo UPS Hat para alimentação do Raspberry Pi" /></figure>
+          <h3>UPS Hat</h3>
+          <p>Módulo de alimentação com proteção e mobilidade, ligado ao Raspberry Pi pelos pinos GPIO.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_04_bateria-18650.png" alt="Baterias de íons de lítio 18650 usadas no UPS Hat" /></figure>
+          <h3>Baterias 18650</h3>
+          <p>Células de íons de lítio instaladas no UPS Hat para autonomia fora da tomada.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_05_microfone-usb.png" alt="Microfone USB utilizado para captura de voz" /></figure>
+          <h3>Microfone USB</h3>
+          <p>Entrada de áudio plug-and-play usada para wake word, gravação da fala e transcrição local.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_06_amplificador-pam8610.png" alt="Módulo amplificador de áudio PAM8610" /></figure>
+          <h3>Amplificador PAM8610</h3>
+          <p>Amplificador classe D com controle físico de volume para alimentar o alto-falante do assistente.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_07_alto-falante.jpeg" alt="Alto-falante de 8 ohms e 10 watts" /></figure>
+          <h3>Alto-falante 8 ohms 10 W</h3>
+          <p>Transdutor de saída responsável pela voz sintetizada e pelos sinais sonoros de interação.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_08_conversor-step-up.png" alt="Módulo conversor de tensão step-up" /></figure>
+          <h3>Conversor step-up</h3>
+          <p>Eleva a tensão do subsistema de áudio para atender a alimentação exigida pelo amplificador.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_09_leitor-rfid.jpeg" alt="Módulo leitor RFID MFRC522" /></figure>
+          <h3>Leitor RFID MFRC522</h3>
+          <p>Módulo SPI usado para identificar cartões físicos e alternar perfis de usuário.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_10_tela-touch.jpeg" alt="Tela touch de 7 polegadas utilizada na interface" /></figure>
+          <h3>Tela touch 7 polegadas</h3>
+          <p>Interface principal de operação, exibindo chat, avatar, tradução e telas administrativas.</p>
+        </article>
+        <article class="hardware-item">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_11_extrator-hdmi.png" alt="Extrator de áudio HDMI usado para saída analógica" /></figure>
+          <h3>Extrator de áudio HDMI</h3>
+          <p>Converte o sinal HDMI para saída analógica, contornando a ausência de P2 no Raspberry Pi 5.</p>
+        </article>
+        <article class="hardware-item hardware-item--diagram">
+          <figure><img loading="lazy" src="assets/images/HardwareDoc/hardware-doc_12_diagrama-blocos.png" alt="Diagrama de blocos do hardware e fluxo do Talking Buddy" /></figure>
+          <h3>Diagrama de blocos</h3>
+          <p>Visão geral das ligações entre microfone, Raspberry Pi 5, modelos de IA, banco local, RFID, tela, energia e saída de áudio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="case" class="section">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Modelagem física</div>
+        <h2>Do CAD ao gabinete impresso.</h2>
+        <p class="lead">
+          O gabinete foi redesenhado para acomodar o empilhamento real dos componentes:
+          tela de 7", alto-falante, ventilação, Raspberry Pi, UPS, RFID e cabos. A carcaça
+          foi impressa em PLA e pensada em três partes principais: frente, tampa traseira
+          e alça de transporte.
+        </p>
+      </header>
+
+      <div class="process-grid">
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>01</span>
+            <h3>Referência visual</h3>
+          </div>
+          <p>A proposta partiu de um objeto compacto de mesa, com proporção próxima a um rádio portátil.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_005.jpeg" alt="Referência visual para o case do Talking Buddy" /></figure>
+        </article>
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>02</span>
+            <h3>Esboço do formato</h3>
+          </div>
+          <p>O desenho definiu alça, tela frontal e volume interno antes da modelagem detalhada.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_003.jpeg" alt="Rascunho inicial do case do Talking Buddy" /></figure>
+        </article>
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>03</span>
+            <h3>Modelagem CAD</h3>
+          </div>
+          <p>O modelo 3D consolidou recortes, inclinação da tela, ventilação, alça e encaixes dos módulos.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_017.jpeg" alt="Modelo CAD do case do Talking Buddy" /></figure>
+        </article>
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>04</span>
+            <h3>Primeira impressão</h3>
+          </div>
+          <p>O gabinete branco validou dimensões, posição da tela, acesso interno e passagem dos cabos.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_012.jpeg" alt="Versão inicial branca do case impresso em 3D" /></figure>
+        </article>
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>05</span>
+            <h3>Acabamento e pintura</h3>
+          </div>
+          <p>As peças receberam lixamento, acabamento e pintura verde e preta antes da montagem final.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_pintura-processo.png" alt="Peças do case durante o processo de pintura" /></figure>
+        </article>
+        <article class="step-card">
+          <div class="step-card__head">
+            <span>06</span>
+            <h3>Montagem final</h3>
+          </div>
+          <p>Com os componentes instalados, o protótipo final reuniu tela, áudio, RFID, ventilação e acessos externos.</p>
+          <figure><img loading="lazy" src="assets/images/Case3D/case3d_028.jpeg" alt="Protótipo final do Talking Buddy ligado sobre a mesa" /></figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="software" class="section section--alt">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Software</div>
+        <h2>Um pipeline local em camadas.</h2>
+        <p class="lead">
+          O software foi construído em Python com arquitetura modular. A interface web roda
+          localmente em modo kiosk, enquanto o orquestrador controla wake word, VAD, STT,
+          LLM, TTS, banco SQLite, personalidades, RAG, memória e tradução.
+        </p>
+      </header>
+
+      <figure class="pipeline-diagram">
+        <img loading="lazy" src="assets/images/SoftwareFinal/software-final_017.jpeg" alt="Fluxograma da arquitetura do pipeline do Talking Buddy" />
+        <figcaption>Fluxograma da arquitetura local, conectando interface, orquestrador, modelos de IA, banco SQLite e módulos de interação.</figcaption>
+      </figure>
+
+      <ol class="pipeline">
+        <li>
+          <span class="pipeline__step">01 · Escuta</span>
+          <h3>openWakeWord + VAD</h3>
+          <p>
+            O sistema monitora "hey buddy", pausa a wake word ao iniciar a captura e usa
+            calibração dinâmica de ruído para evitar gravações inúteis.
+          </p>
+        </li>
+        <li>
+          <span class="pipeline__step">02 · Linguagem</span>
+          <h3>Whisper.cpp + Gemma 3:1B</h3>
+          <p>
+            O áudio vira texto com Whisper.cpp. O Gemma 3:1B, escolhido pelos testes,
+            responde com contexto, idioma e personalidade do perfil ativo.
+          </p>
+        </li>
+        <li>
+          <span class="pipeline__step">03 · Voz</span>
+          <h3>Supertonic 2</h3>
+          <p>
+            As frases completas são enviadas para o TTS em paralelo à geração do LLM,
+            reduzindo a espera percebida pelo usuário.
+          </p>
+        </li>
+      </ol>
+
+      <div class="software-story software-story--wide">
+        <div class="software-copy">
+          <div class="eyebrow">Desenvolvimento</div>
+          <h2>Do terminal à interface touch.</h2>
+          <p>
+            As primeiras telas eram objetivas e utilitárias: menus de administração,
+            cadastro de usuários, edição de perfil e confirmação de ações. Essa fase
+            ajudou a validar o banco SQLite, o fluxo de usuários e a configuração de
+            personalidades antes de chegar ao visual final.
+          </p>
+        </div>
+        <div class="media-carousel" data-carousel data-autoplay="true" aria-label="Galeria do desenvolvimento do software">
+          <div class="carousel-viewport">
+            <div class="carousel-track">
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_001.jpeg" alt="Primeira interface do robô em terminal" /></figure>
+                <div class="carousel-caption"><h3>Interface inicial</h3><p>Primeiro teste visual do avatar e da conversa em uma tela ainda simples.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_007.jpeg" alt="Console web de execução do protótipo em desenvolvimento" /></figure>
+                <div class="carousel-caption"><h3>Console de execução</h3><p>Logs e estados do robô ajudaram a acompanhar eventos durante os testes de integração.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_004.jpeg" alt="Tela de login administrativa em desenvolvimento" /></figure>
+                <div class="carousel-caption"><h3>Login administrativo</h3><p>Entrada protegida para separar o uso comum das configurações do sistema.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_002.jpeg" alt="Menu de desenvolvimento do Talking Buddy" /></figure>
+                <div class="carousel-caption"><h3>Menus internos</h3><p>Fluxos de administração nasceram no terminal para validar ações e estados.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_003.jpeg" alt="Tela administrativa em desenvolvimento" /></figure>
+                <div class="carousel-caption"><h3>Administração</h3><p>As primeiras telas organizaram cadastros, edição e navegação administrativa.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_005.jpeg" alt="Tela de listagem de usuários em desenvolvimento" /></figure>
+                <div class="carousel-caption"><h3>Usuários e perfis</h3><p>Listagens e ações ajudaram a validar a estrutura do banco SQLite.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_008.jpeg" alt="Tela de cadastro de novo usuário em desenvolvimento" /></figure>
+                <div class="carousel-caption"><h3>Cadastro de usuário</h3><p>O formulário reuniu RFID, idioma, personalidade e especializações antes da interface final.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareDev/software-dev_006.jpeg" alt="Confirmação de remoção de usuário no sistema" /></figure>
+                <div class="carousel-caption"><h3>Confirmações</h3><p>Ações destrutivas receberam telas de confirmação antes do fluxo final.</p></div>
+              </article>
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <button type="button" class="carousel-btn" data-carousel-prev aria-label="Imagem anterior">‹</button>
+            <span class="carousel-count" aria-live="polite">1 / 8</span>
+            <button type="button" class="carousel-btn" data-carousel-next aria-label="Próxima imagem">›</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="software-story software-story--wide software-story--final">
+        <div class="software-copy">
+          <div class="eyebrow">Interface</div>
+          <h2>Chat, RAG, tradução e administração.</h2>
+          <p>
+            A interface final reúne avatar animado, chat incremental, teclado virtual,
+            modo tradutor, especializações por RAG e telas administrativas para usuários.
+            Ela foi pensada para uso direto na tela touch de 7 polegadas.
+          </p>
+        </div>
+        <div class="media-carousel" data-carousel data-autoplay="true" aria-label="Galeria do software final">
+          <div class="carousel-viewport">
+            <div class="carousel-track">
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_032.jpeg" alt="Avatar final em tela cheia" /></figure>
+                <div class="carousel-caption"><h3>Avatar animado</h3><p>A presença visual do assistente foi simplificada para leitura rápida.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_021.jpeg" alt="Chat com avatar em estado de conversa" /></figure>
+                <div class="carousel-caption"><h3>Estado de conversa</h3><p>O avatar muda de estado para acompanhar fala, escuta e processamento.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_018.jpeg" alt="Chat final do Talking Buddy" /></figure>
+                <div class="carousel-caption"><h3>Conversa incremental</h3><p>Texto e voz avançam enquanto o modelo ainda gera a resposta.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_004.jpeg" alt="Resposta textual incremental na interface final" /></figure>
+                <div class="carousel-caption"><h3>Resposta em fluxo</h3><p>A interface acompanha a geração do modelo para reduzir espera percebida.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_001.jpeg" alt="Teclado virtual final" /></figure>
+                <div class="carousel-caption"><h3>Teclado virtual</h3><p>Entrada textual direta para a tela touch quando o usuário não quer falar.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_006.jpeg" alt="Menu lateral da interface final" /></figure>
+                <div class="carousel-caption"><h3>Menu lateral</h3><p>Atalhos da interface final organizam modos de uso e administração.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_014.jpeg" alt="Tela de tradução simultânea do Talking Buddy" /></figure>
+                <div class="carousel-caption"><h3>Modo tradutor</h3><p>O assistente vira ponte visual e acústica entre português, inglês e espanhol.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_013.jpeg" alt="Tela de edição de usuário da interface final" /></figure>
+                <div class="carousel-caption"><h3>Edição de usuário</h3><p>A interface final organiza dados pessoais, idioma, perfil e preferências em tela touch.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_035.jpeg" alt="Listagem administrativa de usuários" /></figure>
+                <div class="carousel-caption"><h3>Administração final</h3><p>Usuários, perfis e cartões RFID ficam acessíveis em telas dedicadas.</p></div>
+              </article>
+              <article class="carousel-slide">
+                <figure><img loading="lazy" src="assets/images/SoftwareFinal/software-final_003.jpeg" alt="Tela de seleção de especialização RAG" /></figure>
+                <div class="carousel-caption"><h3>Especialização por perfil</h3><p>Perfis podem carregar bases de conhecimento diferentes por RAG.</p></div>
+              </article>
+            </div>
+          </div>
+          <div class="carousel-controls">
+            <button type="button" class="carousel-btn" data-carousel-prev aria-label="Imagem anterior">‹</button>
+            <span class="carousel-count" aria-live="polite">1 / 10</span>
+            <button type="button" class="carousel-btn" data-carousel-next aria-label="Próxima imagem">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experimente" class="section experimente">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Experimente</div>
+        <h2>Converse com uma simulação do Talking Buddy.</h2>
+        <p class="lead">
+          Esta demo é 100% estática e usa uma base local inspirada no relatório técnico.
+          Ela simula memória curta e respostas sobre o projeto.
+          No protótipo físico, a IA real roda localmente no Raspberry Pi 5.
+        </p>
+      </header>
+
+      <div class="exp__grid">
+        <div class="exp__robot">
+          <canvas id="robot-canvas"></canvas>
+        </div>
+        <aside class="exp__chat" aria-label="Chat com o Talking Buddy">
+          <header class="exp__chat-head">
+            <span class="exp__dot"></span>
+            <span>Talking Buddy</span>
+            <span class="exp__status" id="bot-status">Pronto</span>
+          </header>
+          <div class="exp__log" id="chat-log">
+            <div class="msg bot">Oi! Eu sou uma simulação local do Talking Buddy. Pergunte sobre hardware, software, RAG, memória, tradução, testes ou diga "meu nome é..." para testar memória curta.</div>
+          </div>
+          <form class="exp__input" id="chat-form">
+            <button type="button" class="mic" id="mic-btn" title="Falar" aria-label="Falar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <input id="chat-input" type="text" placeholder="Pergunte sobre o Talking Buddy..." autocomplete="off" />
+            <button type="submit" class="send" title="Enviar" aria-label="Enviar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+          <div class="exp__err" id="mic-err" hidden></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultados" class="section">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Resultados</div>
+        <h2>Testado em função, desempenho e estabilidade.</h2>
+        <p class="lead">
+          A validação combinou testes de caixa-preta, voltados à experiência do usuário,
+          e testes de caixa-branca, voltados ao comportamento interno do pipeline, consumo
+          de recursos e estabilidade do hardware.
+        </p>
+      </header>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric__num" data-count="222" data-decimals="0" data-suffix="min">222<small>min</small></div>
+          <div class="metric__lbl">Autonomia em operação contínua</div>
+        </div>
+        <div class="metric">
+          <div class="metric__num" data-count="2.09" data-decimals="2" data-suffix="s">2,09<small>s</small></div>
+          <div class="metric__lbl">Inferência warm do Gemma 3:1B</div>
+        </div>
+        <div class="metric">
+          <div class="metric__num" data-prefix="&lt;" data-count="0.2" data-decimals="1">&lt;0,2</div>
+          <div class="metric__lbl">RTF planejado para Supertonic 2</div>
+        </div>
+        <div class="metric">
+          <div class="metric__num" data-prefix="&lt;" data-count="50" data-decimals="0" data-suffix="ms">&lt;50<small>ms</small></div>
+          <div class="metric__lbl">Meta P95 de consulta SQLite</div>
+        </div>
+      </div>
+
+      <div class="media-carousel media-carousel--tests" data-carousel data-autoplay="true" aria-label="Galeria de resultados de testes">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_004.jpeg" alt="Gráfico de latência de transcrição STT" /></figure>
+              <div class="carousel-caption"><h3>Caixa branca · STT</h3><p>Ensaios mediram a latência de transcrição do Whisper.cpp em frases curtas do fluxo de voz.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_011.jpeg" alt="Gráficos de tempo de resposta e inferência do LLM" /></figure>
+              <div class="carousel-caption"><h3>Caixa branca · LLM</h3><p>As medições compararam inferência cold e warm do Gemma 3:1B em streaming.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_014.jpeg" alt="Gráfico de Real Time Factor do TTS Supertonic 2" /></figure>
+              <div class="carousel-caption"><h3>Caixa branca · TTS</h3><p>O Real-Time Factor comparou a síntese de voz e confirmou geração abaixo da meta planejada.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_012.jpeg" alt="Gráficos de monitoramento de recursos do sistema" /></figure>
+              <div class="carousel-caption"><h3>Caixa branca · Telemetria</h3><p>CPU, memória e temperatura foram acompanhadas para observar estabilidade interna.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_013.jpeg" alt="Gráfico de latência de consulta SQLite e recuperação de contexto" /></figure>
+              <div class="carousel-caption"><h3>Caixa branca · SQLite</h3><p>Consultas locais validaram recuperação rápida de histórico e contexto antes da inferência.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_016.jpeg" alt="Tabela de testes funcionais do wake word e fluxo de fala" /></figure>
+              <div class="carousel-caption"><h3>Caixa preta · Wake word</h3><p>A matriz funcional registrou ativação por voz, transcrição e resposta em diferentes cenários.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_017.jpeg" alt="Gráfico de avaliação do fluxo conversacional" /></figure>
+              <div class="carousel-caption"><h3>Caixa preta · Conversa</h3><p>Usuários avaliaram espera, naturalidade da fala e sensação de conversa.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_019.jpeg" alt="Gráfico de latência de troca de perfil RFID" /></figure>
+              <div class="carousel-caption"><h3>Caixa preta · RFID</h3><p>Transições validaram troca física de perfil sem vazamento de histórico ou preferências.</p></div>
+            </article>
+            <article class="carousel-slide">
+              <figure><img loading="lazy" src="assets/images/Testes/testes_020.jpeg" alt="Gráfico de autonomia de bateria e temperatura" /></figure>
+              <div class="carousel-caption"><h3>Caixa preta · Autonomia</h3><p>O sistema operou por 222 minutos em uso contínuo e manteve estabilidade térmica.</p></div>
+            </article>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-btn" data-carousel-prev aria-label="Imagem anterior">‹</button>
+          <span class="carousel-count" aria-live="polite">1 / 9</span>
+          <button type="button" class="carousel-btn" data-carousel-next aria-label="Próxima imagem">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria" class="section section--alt">
+    <div class="wrap">
+      <header class="section__head">
+        <div class="eyebrow">Galeria</div>
+        <h2>Registro visual do processo.</h2>
+        <p class="lead">
+          Registros do processo de construção do protótipo, reunindo bancada de hardware,
+          evolução do gabinete físico e apresentação final do TCC.
+        </p>
+      </header>
+
+      <div class="gallery-set">
+        <section class="gallery-block">
+          <h3>Hardware em bancada</h3>
+          <div class="masonry">
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_011.jpeg" alt="Amplificador, alto-falante e módulos de áudio em bancada" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_010.jpeg" alt="Raspberry Pi integrado a módulos em protoboard" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareFinal/hardware-final_008.jpeg" alt="Módulo de áudio e alto-falante selecionados" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_003.jpeg" alt="Protótipo de hardware em bancada com Raspberry Pi e periféricos" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_004.jpeg" alt="Raspberry Pi com cabos e periféricos conectados" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_006.jpeg" alt="Módulo de alimentação e cabos em teste" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_012.jpeg" alt="Bancada de testes de áudio do protótipo" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_014.jpeg" alt="Leitor RFID conectado em protoboard" /></figure>
+            <figure><img loading="lazy" src="assets/images/HardwareDev/hardware-dev_015.jpeg" alt="Alto-falante e módulo RFID em teste" /></figure>
+          </div>
+        </section>
+
+        <section class="gallery-block">
+          <h3>Case e protótipo físico</h3>
+          <div class="masonry">
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_011.jpeg" alt="Parte traseira do protótipo aberto" /></figure>
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_021.jpeg" alt="Vista superior do case" /></figure>
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_023.jpeg" alt="Tampa traseira ventilada do case" /></figure>
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_038.jpeg" alt="Alça superior com símbolo RFID" /></figure>
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_040.jpeg" alt="Conexões externas do protótipo" /></figure>
+            <figure><img loading="lazy" src="assets/images/Case3D/case3d_041.jpeg" alt="Portas externas do protótipo" /></figure>
+          </div>
+        </section>
+
+        <section class="gallery-block">
+          <h3>Apresentação final</h3>
+          <div class="masonry">
+            <figure><img loading="lazy" src="assets/images/Apresentacao/apresentacao-final_005.jpeg" alt="Apresentação final do TCC" /></figure>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section id="autores" class="section">
+    <div class="wrap">
+      <header class="section__head section__head--wide">
+        <div class="eyebrow">Autores</div>
+        <h2>Feito por dois alunos de Engenharia da Computação.</h2>
+        <p class="lead">
+          O Talking Buddy foi desenvolvido como Trabalho de Conclusão de Curso na PUCPR,
+          unindo pesquisa aplicada, prototipagem física, software embarcado e validação experimental.
+        </p>
+      </header>
+
+      <div class="authors-grid">
+        <article class="author-card">
+          <div class="author-card__head">
+            <figure class="author-photo">
+              <img loading="lazy" src="assets/images/Autores/rafael-piveta.png" alt="Foto de Rafael Olivare Piveta" />
+            </figure>
+            <div>
+              <h3>Rafael Olivare Piveta</h3>
+              <p class="author-role">Engenharia da Computação · PUCPR</p>
+            </div>
+          </div>
+          <p>
+            Coautor responsável pelo hardware, desenvolvimento da interface,
+            concepção do case e documentação do projeto.
+          </p>
+          <div class="author-contact-list">
+            <a class="author-contact" href="mailto:rafa.piveta@proton.me" aria-label="Enviar email para Rafael Olivare Piveta">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a2 2 0 0 1-2.06 0L2 7"/></svg>
+              <span><strong>Email</strong><em>rafa.piveta@proton.me</em></span>
+            </a>
+            <a class="author-contact" href="tel:+5541997866205" aria-label="Ligar para Rafael Olivare Piveta">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.57 2.61a2 2 0 0 1-.45 2.11L8 9.67a16 16 0 0 0 6.33 6.33l1.23-1.23a2 2 0 0 1 2.11-.45c.84.25 1.71.45 2.61.57A2 2 0 0 1 22 16.92Z"/></svg>
+              <span><strong>Telefone</strong><em>+55 (41) 99786-6205</em></span>
+            </a>
+          </div>
+          <div class="author-links">
+            <a class="author-link" href="https://github.com/RafaPiveta" target="_blank" rel="noopener" aria-label="GitHub de Rafael Olivare Piveta">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-3.8a4 4 0 0 0-1.1-3c3.6-.4 7.4-1.8 7.4-8A6.2 6.2 0 0 0 19.7 3c.2-.6.7-2-.2-3 0 0-1.3-.4-4.2 1.6a14.4 14.4 0 0 0-7.6 0C4.8-.4 3.5 0 3.5 0c-.9 1-.4 2.4-.2 3A6.2 6.2 0 0 0 1.7 7.2c0 6.2 3.8 7.6 7.4 8A4 4 0 0 0 8 18.2V22"/><path d="M8 19c-3 .9-5-1-6-3"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="author-link" href="https://www.linkedin.com/in/rafael-olivare-piveta/" target="_blank" rel="noopener" aria-label="LinkedIn de Rafael Olivare Piveta">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="author-card">
+          <div class="author-card__head">
+            <figure class="author-photo">
+              <img loading="lazy" src="assets/images/Autores/stefan-rodrigues.png" alt="Foto de Stefan Benjamim Seixas Lourenço Rodrigues" />
+            </figure>
+            <div>
+              <h3>Stefan Benjamim Seixas Lourenço Rodrigues</h3>
+              <p class="author-role">Engenharia da Computação · PUCPR</p>
+            </div>
+          </div>
+          <p>
+            Coautor responsável pelo software, treinamento do wake word, integração
+            dos módulos de IA e execução dos testes.
+          </p>
+          <div class="author-contact-list">
+            <a class="author-contact" href="mailto:stefanme48@gmail.com" aria-label="Enviar email para Stefan Benjamim Seixas Lourenço Rodrigues">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a2 2 0 0 1-2.06 0L2 7"/></svg>
+              <span><strong>Email</strong><em>stefanme48@gmail.com</em></span>
+            </a>
+            <a class="author-contact" href="tel:+5541933000884" aria-label="Ligar para Stefan Benjamim Seixas Lourenço Rodrigues">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.57 2.61a2 2 0 0 1-.45 2.11L8 9.67a16 16 0 0 0 6.33 6.33l1.23-1.23a2 2 0 0 1 2.11-.45c.84.25 1.71.45 2.61.57A2 2 0 0 1 22 16.92Z"/></svg>
+              <span><strong>Telefone</strong><em>+55 (41) 93300-0884</em></span>
+            </a>
+          </div>
+          <div class="author-links">
+            <a class="author-link" href="https://github.com/waifuisalie" target="_blank" rel="noopener" aria-label="GitHub de Stefan Benjamim Seixas Lourenço Rodrigues">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-3.8a4 4 0 0 0-1.1-3c3.6-.4 7.4-1.8 7.4-8A6.2 6.2 0 0 0 19.7 3c.2-.6.7-2-.2-3 0 0-1.3-.4-4.2 1.6a14.4 14.4 0 0 0-7.6 0C4.8-.4 3.5 0 3.5 0c-.9 1-.4 2.4-.2 3A6.2 6.2 0 0 0 1.7 7.2c0 6.2 3.8 7.6 7.4 8A4 4 0 0 0 8 18.2V22"/><path d="M8 19c-3 .9-5-1-6-3"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a class="author-link" href="https://www.linkedin.com/in/stefan-benjamim-seixas-louren%C3%A7o-rodrigues/" target="_blank" rel="noopener" aria-label="LinkedIn de Stefan Benjamim Seixas Lourenço Rodrigues">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__panel">
+      <div class="foot__brand">
+        <a href="#top" class="foot__logo" aria-label="Voltar ao início">
+          <span class="brand__dot"></span>
+          <strong>Talking Buddy</strong>
+        </a>
+        <p>Assistente conversacional offline desenvolvido como TCC de Engenharia da Computação.</p>
+      </div>
+
+      <div class="foot__nav" aria-label="Links do site">
+        <span class="foot__label">Navegação</span>
+        <div>
+          <a href="#sobre">Sobre</a>
+          <a href="#hardware">Hardware</a>
+          <a href="#case">Case 3D</a>
+          <a href="#software">Software</a>
+          <a href="#experimente">Experimente</a>
+          <a href="#resultados">Resultados</a>
+          <a href="#galeria">Galeria</a>
+          <a href="#autores">Autores</a>
+        </div>
+      </div>
+
+      <div class="foot__actions">
+        <a class="foot-link" href="https://github.com/RafaPiveta/Talking-Buddy" target="_blank" rel="noopener">
+          <span>Projeto no GitHub</span>
+          <small>Código-fonte público</small>
+        </a>
+        <a class="foot-link" href="https://drive.proton.me/urls/X1234H4VKG#nrAXoGPNZxoI" target="_blank" rel="noopener">
+          <span>Relatório do TCC</span>
+          <small>Documento técnico completo</small>
+        </a>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© <span id="year"></span> Talking Buddy</span>
+      <span>PUCPR · Edge AI · Privacidade local</span>
+    </div>
+  </div>
+</footer>
+
+<div class="lang-switch" role="group" aria-label="Idioma do site" data-current="pt">
+  <button type="button" class="lang-switch__btn is-active" data-lang="pt" aria-pressed="true" title="Português">PT</button>
+  <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false" title="English">EN</button>
+  <button type="button" class="lang-switch__btn" data-lang="es" aria-pressed="false" title="Español">ES</button>
+</div>
+
+<div class="lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada" hidden>
+  <button type="button" class="lightbox__close" aria-label="Fechar imagem">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  </button>
+  <figure class="lightbox__frame">
+    <img alt="" />
+    <figcaption></figcaption>
+  </figure>
+</div>
+
+<script src="assets/js/robot_animation.js?v=20260630-25"></script>
+<script src="assets/js/i18n.js?v=20260630-25"></script>
+<script src="assets/js/interactive.js?v=20260630-25"></script>
+<script src="assets/js/main.js?v=20260630-25"></script>
+</body>
+</html>
