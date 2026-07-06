@@ -14,6 +14,111 @@ document.querySelectorAll('img').forEach((img) => {
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Keep muted demo videos actually playing in browsers that require a scripted nudge after load.
+const initAutoplayVideos = () => {
+  const videos = Array.from(document.querySelectorAll('video[autoplay]'));
+  if (!videos.length) return;
+
+  const tryPlay = (video) => {
+    video.muted = true;
+    const playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(() => {});
+    }
+  };
+
+  videos.forEach((video) => {
+    video.loop = true;
+    video.playsInline = true;
+    if (video.readyState >= 2) {
+      tryPlay(video);
+    } else {
+      video.addEventListener('canplay', () => tryPlay(video), { once: true });
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+    videos.forEach((video) => {
+      if (video.paused) tryPlay(video);
+    });
+  });
+};
+
+initAutoplayVideos();
+
+// Technical term tooltips are rendered outside their section so they cannot be clipped by images or cards.
+const initTermTooltips = () => {
+  const terms = Array.from(document.querySelectorAll('.term[data-tip]'));
+  if (!terms.length) return;
+
+  const tooltip = document.createElement('div');
+  tooltip.className = 'term-tooltip';
+  tooltip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tooltip);
+
+  let activeTerm = null;
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  const positionTooltip = () => {
+    if (!activeTerm || !tooltip.classList.contains('is-visible')) return;
+
+    const termRect = activeTerm.getBoundingClientRect();
+    const tipRect = tooltip.getBoundingClientRect();
+    const margin = 12;
+    const gap = 10;
+    const preferredTop = termRect.top - tipRect.height - gap;
+    const fallbackTop = termRect.bottom + gap;
+    const top = preferredTop >= margin ? preferredTop : fallbackTop;
+    const left = clamp(
+      termRect.left + termRect.width / 2 - tipRect.width / 2,
+      margin,
+      Math.max(margin, window.innerWidth - tipRect.width - margin)
+    );
+
+    tooltip.style.left = `${Math.round(left)}px`;
+    tooltip.style.top = `${Math.round(clamp(top, margin, window.innerHeight - tipRect.height - margin))}px`;
+  };
+
+  const showTooltip = (term) => {
+    const text = term.getAttribute('data-tip');
+    if (!text) return;
+    activeTerm = term;
+    term.removeAttribute('title');
+    tooltip.textContent = text;
+    tooltip.classList.add('is-visible');
+    requestAnimationFrame(positionTooltip);
+  };
+
+  const hideTooltip = (term) => {
+    if (term && activeTerm && term !== activeTerm) return;
+    activeTerm = null;
+    tooltip.classList.remove('is-visible');
+  };
+
+  terms.forEach((term) => {
+    term.removeAttribute('title');
+    term.addEventListener('pointerenter', () => showTooltip(term));
+    term.addEventListener('pointerleave', () => hideTooltip(term));
+    term.addEventListener('focusin', () => showTooltip(term));
+    term.addEventListener('focusout', () => hideTooltip(term));
+  });
+
+  window.addEventListener('scroll', positionTooltip, { passive: true });
+  window.addEventListener('resize', positionTooltip);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') hideTooltip();
+  });
+  window.addEventListener('talkingbuddy:languagechange', () => {
+    if (!activeTerm) return;
+    tooltip.textContent = activeTerm.getAttribute('data-tip') || '';
+    requestAnimationFrame(positionTooltip);
+  });
+};
+
+initTermTooltips();
+
 // Rotating hero promise.
 const heroKeyword = document.getElementById('hero-keyword');
 if (heroKeyword) {
