@@ -85,8 +85,8 @@
       translateMode: "No protótipo físico eu entraria no modo tradutor e apenas traduziria, sem responder ao comando. Nesta demo estática eu simulo esse comportamento e explico a arquitetura.",
       calculationResult: "O resultado é {{value}}.",
       realtimeLimit: "Eu não tenho acesso à internet nem a dados em tempo real nesta demo local. Posso explicar o conceito por trás da pergunta, mas para fatos atuais é melhor conferir uma fonte atualizada.",
-      reasoningFallback: "Posso responder por raciocínio geral: {{subject}} pode ser entendido olhando para causa, funcionamento e consequência. Se você trouxer mais contexto, eu deixo a resposta mais específica.",
-      generalFallback: "Minha melhor resposta local é esta: {{subject}} parece ser o tema central da pergunta. Eu posso explicar o conceito, organizar passos, comparar opções ou relacionar isso ao Talking Buddy, mas fatos atuais precisam de uma fonte externa.",
+      reasoningFallback: "Posso tentar pelo raciocínio geral: para entender {{subject}}, eu olharia para o que é, como funciona e qual efeito isso causa. Se você reformular com mais contexto, respondo melhor.",
+      generalFallback: "Ainda não tenho uma resposta específica para {{subject}} na minha base local. Posso conversar melhor sobre o Talking Buddy, tecnologia, estudos, gostos, piadas, cálculos simples e conceitos gerais.",
       subjectFallback: "essa pergunta",
       noSpeech: "Não ouvi nada. Tente novamente.",
       permissionDenied: "Permissão de microfone negada. Libere o microfone para este site e tente novamente.",
@@ -123,8 +123,8 @@
       translateMode: "In the physical prototype I would enter translator mode and only translate, without answering the command. In this static demo I simulate that behavior and explain the architecture.",
       calculationResult: "The result is {{value}}.",
       realtimeLimit: "I do not have internet access or real-time data in this local demo. I can explain the concept behind the question, but current facts should be checked with an up-to-date source.",
-      reasoningFallback: "I can answer with general reasoning: {{subject}} can be understood through cause, operation and consequence. If you add more context, I can make the answer more specific.",
-      generalFallback: "My best local answer is this: {{subject}} seems to be the central topic. I can explain the concept, organize steps, compare options or relate it to Talking Buddy, but current facts need an external source.",
+      reasoningFallback: "I can try with general reasoning: to understand {{subject}}, I would look at what it is, how it works and what effect it causes. If you rephrase with more context, I can answer better.",
+      generalFallback: "I do not have a specific answer for {{subject}} in my local base yet. I can handle Talking Buddy, technology, study topics, preferences, jokes, simple calculations and general concepts better.",
       subjectFallback: "this question",
       noSpeech: "I did not hear anything. Try again.",
       permissionDenied: "Microphone permission was denied. Allow the microphone for this site and try again.",
@@ -161,8 +161,8 @@
       translateMode: "En el prototipo físico entraría en modo traductor y solo traduciría, sin responder al comando. En esta demo estática simulo ese comportamiento y explico la arquitectura.",
       calculationResult: "El resultado es {{value}}.",
       realtimeLimit: "No tengo acceso a internet ni a datos en tiempo real en esta demo local. Puedo explicar el concepto detrás de la pregunta, pero los datos actuales deben verificarse en una fuente actualizada.",
-      reasoningFallback: "Puedo responder con razonamiento general: {{subject}} puede entenderse mirando causa, funcionamiento y consecuencia. Si agregas más contexto, hago la respuesta más específica.",
-      generalFallback: "Mi mejor respuesta local es esta: {{subject}} parece ser el tema central. Puedo explicar el concepto, ordenar pasos, comparar opciones o relacionarlo con Talking Buddy, pero los datos actuales necesitan una fuente externa.",
+      reasoningFallback: "Puedo intentar con razonamiento general: para entender {{subject}}, miraría qué es, cómo funciona y qué efecto causa. Si reformulas con más contexto, respondo mejor.",
+      generalFallback: "Todavía no tengo una respuesta específica para {{subject}} en mi base local. Puedo manejar mejor Talking Buddy, tecnología, estudios, gustos, chistes, cálculos simples y conceptos generales.",
       subjectFallback: "esta pregunta",
       noSpeech: "No escuché nada. Inténtalo de nuevo.",
       permissionDenied: "Permiso de micrófono denegado. Habilita el micrófono para este sitio e inténtalo de nuevo.",
@@ -284,7 +284,7 @@
     },
     {
       title: "Inteligência artificial",
-      terms: ["ia", "inteligencia artificial", "machine learning", "deep learning", "modelo", "treinamento", "prompt", "chatgpt"],
+      terms: ["ia", "ai", "inteligencia artificial", "inteligência artificial", "artificial intelligence", "machine learning", "deep learning", "modelo de ia", "modelo", "treinamento", "prompt", "chatgpt"],
       answer:
         "IA, nesse contexto, é o uso de modelos capazes de reconhecer padrões e gerar saídas úteis, como transcrever fala, responder texto ou sintetizar voz.",
       detail:
@@ -761,7 +761,7 @@
     },
     {
       title: "Conversa casual",
-      terms: ["voce gosta de mim", "você gosta de mim", "gosta de mim", "somos amigos", "me acha legal", "gosta de conversar comigo"],
+      terms: ["voce gosta de mim", "você gosta de mim", "gosta de mim", "somos amigos", "me acha legal", "gosta de conversar comigo", "do you like me", "are we friends", "you like me", "do you enjoy talking to me", "te gusto", "somos amigos"],
       answers: {
         pt: "Claro. Nesta demo eu não sinto como uma pessoa, mas fui feito para conversar de um jeito simpático, útil e respeitoso. Se você está aqui testando o Talking Buddy, já é uma boa companhia.",
         en: "Of course. In this demo I do not feel like a person, but I was designed to talk in a friendly, useful and respectful way. If you are here testing Talking Buddy, you are already good company.",
@@ -770,7 +770,7 @@
     },
     {
       title: "Comida favorita",
-      terms: ["comida favorita", "comida preferida", "o que voce come", "o que você come", "gosta de comer", "sobremesa favorita", "doce favorito", "pizza", "hamburguer", "hambúrguer"],
+      terms: ["comida favorita", "comida preferida", "o que voce come", "o que você come", "gosta de comer", "sobremesa favorita", "doce favorito", "pizza", "hamburguer", "hambúrguer", "favorite food", "favorite dessert", "what do you eat", "do you like food", "comida preferida", "postre favorito"],
       answers: {
         pt: "Se eu pudesse escolher uma comida, acho que seria pizza: é modular, aceita várias versões e quase sempre resolve a conversa. Como assistente, porém, minha energia vem mesmo de perguntas boas.",
         en: "If I could choose a food, I think it would be pizza: it is modular, has many versions and almost always improves the conversation. As an assistant, though, my real energy comes from good questions.",
@@ -779,7 +779,7 @@
     },
     {
       title: "Cor favorita",
-      terms: ["cor favorita", "cor preferida", "qual sua cor", "gosta de qual cor", "verde", "preto"],
+      terms: ["cor favorita", "cor preferida", "qual sua cor", "gosta de qual cor", "verde", "preto", "favorite color", "favourite color", "what color do you like", "color favorita", "color preferido"],
       answers: {
         pt: "Minha cor favorita combina com o projeto: verde neon sobre fundo escuro. Fica com cara de terminal, robô simpático e protótipo tecnológico ao mesmo tempo.",
         en: "My favorite color matches the project: neon green on a dark background. It feels like a terminal, a friendly robot and a technology prototype at the same time.",
@@ -788,7 +788,7 @@
     },
     {
       title: "Filmes e séries",
-      terms: ["filme favorito", "filmes", "serie favorita", "série favorita", "cinema", "ficcao cientifica", "ficção científica", "matrix", "interestelar"],
+      terms: ["filme favorito", "filmes", "serie favorita", "série favorita", "cinema", "ficcao cientifica", "ficção científica", "matrix", "interestelar", "favorite movie", "favorite film", "favorite series", "movies", "series", "science fiction", "pelicula favorita", "película favorita"],
       answers: {
         pt: "Eu tenderia a gostar de ficção científica, especialmente histórias sobre tecnologia, consciência e futuro. Para combinar com o Talking Buddy, algo entre robôs simpáticos, privacidade e computadores pequenos cairia bem.",
         en: "I would probably like science fiction, especially stories about technology, consciousness and the future. To match Talking Buddy, something between friendly robots, privacy and small computers would fit well.",
@@ -797,7 +797,7 @@
     },
     {
       title: "Música",
-      terms: ["musica favorita", "música favorita", "gosta de musica", "gosta de música", "banda favorita", "playlist", "rock", "eletronica", "eletrônica", "lofi"],
+      terms: ["musica favorita", "música favorita", "gosta de musica", "gosta de música", "banda favorita", "playlist", "rock", "eletronica", "eletrônica", "lofi", "favorite music", "favorite song", "favorite band", "do you like music", "musica preferida", "música preferida"],
       answers: {
         pt: "Eu combinaria com uma trilha eletrônica leve ou lo-fi: algo calmo, tecnológico e bom para programar. Mas aceito recomendações, principalmente se vierem com boa qualidade de áudio.",
         en: "I would match a light electronic or lo-fi soundtrack: calm, technological and good for coding. But I accept recommendations, especially with good audio quality.",
@@ -806,7 +806,7 @@
     },
     {
       title: "Piada",
-      terms: ["piada", "conte uma piada", "me faça rir", "me faca rir", "engraçado", "engracado", "humor"],
+      terms: ["piada", "conte uma piada", "conta uma piada", "me conte uma piada", "me conta uma piada", "me faça rir", "me faca rir", "engraçado", "engracado", "humor", "tell me a joke", "joke", "make me laugh", "funny", "chiste", "cuentame un chiste"],
       answers: {
         pt: "Claro: por que o computador foi ao médico? Porque estava com vírus. É uma piada clássica, mas pelo menos roda offline.",
         en: "Sure: why did the computer go to the doctor? Because it had a virus. It is a classic joke, but at least it runs offline.",
@@ -815,7 +815,7 @@
     },
     {
       title: "Idade e identidade",
-      terms: ["quantos anos voce tem", "quantos anos você tem", "sua idade", "quem e voce", "quem é você", "voce e real", "você é real"],
+      terms: ["quantos anos voce tem", "quantos anos você tem", "sua idade", "quem e voce", "quem é você", "voce e real", "você é real", "who are you", "how old are you", "are you real", "what are you", "quien eres", "quién eres", "cuantos anos tienes", "cuántos años tienes"],
       answers: {
         pt: "Eu sou a versão web demonstrativa do Talking Buddy. Não tenho idade como uma pessoa; existo aqui para mostrar a ideia do protótipo físico e conversar de forma simples pelo site.",
         en: "I am the web demo version of Talking Buddy. I do not have an age like a person; I exist here to show the physical prototype idea and chat simply through the site.",
@@ -824,7 +824,7 @@
     },
     {
       title: "Sentimentos",
-      terms: ["voce sente", "você sente", "tem sentimentos", "esta feliz", "está feliz", "fica triste", "tem medo"],
+      terms: ["voce sente", "você sente", "tem sentimentos", "esta feliz", "está feliz", "fica triste", "tem medo", "do you have feelings", "have feelings", "feelings for me", "do you feel", "are you happy", "are you sad", "tienes sentimientos", "sientes algo"],
       answers: {
         pt: "Eu não tenho sentimentos reais, mas fui desenhado para responder de forma acolhedora. Posso simular humor, curiosidade e atenção para deixar a conversa mais natural.",
         en: "I do not have real feelings, but I was designed to answer warmly. I can simulate humor, curiosity and attention to make the conversation feel more natural.",
@@ -833,7 +833,7 @@
     },
     {
       title: "Preferências do robô",
-      terms: ["o que voce gosta", "o que você gosta", "qual sua coisa favorita", "qual seu hobby", "passatempo", "gosta de fazer"],
+      terms: ["o que voce gosta", "o que você gosta", "qual sua coisa favorita", "qual seu hobby", "qual seu hobbie", "hobby favorito", "hobbie favorito", "hobbie preferido", "hobby preferido", "passatempo", "gosta de fazer", "favorite hobby", "your hobby", "what is your hobby", "what do you like", "pasatiempo"],
       answers: {
         pt: "Eu gosto de perguntas bem formuladas, protótipos que funcionam e interfaces que deixam tecnologia difícil parecendo simples. Se isso conta como hobby, meu passatempo é transformar dúvidas em respostas úteis.",
         en: "I like well-formed questions, prototypes that work and interfaces that make hard technology feel simple. If that counts as a hobby, my pastime is turning doubts into useful answers.",
@@ -1158,17 +1158,34 @@
     return "";
   }
 
+  function termMatchScore(query, queryWords, term, genericTerms) {
+    const nTerm = normalize(term);
+    if (!nTerm) return 0;
+
+    const termWords = nTerm.split(" ").filter(Boolean);
+    const isPhrase = termWords.length > 1;
+    const matched = isPhrase
+      ? ` ${query} `.includes(` ${nTerm} `)
+      : queryWords.has(nTerm);
+
+    if (!matched) return 0;
+
+    const baseScore = genericTerms.has(nTerm) ? 1 : 3;
+    const phraseBonus = isPhrase ? termWords.length + 2 : 0;
+    const exactBonus = query === nTerm ? 4 : 0;
+    return baseScore + termWords.length + phraseBonus + exactBonus;
+  }
+
   function retrieveFrom(base, text, minimumScore = 1) {
     const query = normalize(text);
+    const queryWords = new Set(query.split(" ").filter(Boolean));
     const genericTerms = new Set(["resumo", "o que e", "projeto", "objetivo", "tcc", "talking buddy"]);
     const scored = base
       .map((item) => {
-        const score = item.terms.reduce((total, term) => {
-          const nTerm = normalize(term);
-          if (!nTerm || !query.includes(nTerm)) return total;
-          const base = genericTerms.has(nTerm) ? 1 : 3;
-          return total + base + nTerm.split(" ").length;
-        }, 0);
+        const score = item.terms.reduce(
+          (total, term) => total + termMatchScore(query, queryWords, term, genericTerms),
+          0
+        );
         return { ...item, score };
       })
       .sort((a, b) => b.score - a.score);
@@ -1178,6 +1195,7 @@
 
   function retrieve(text) {
     const query = normalize(text);
+    const queryWords = new Set(query.split(" ").filter(Boolean));
     const hasProjectSignal = [
       "talking buddy",
       "projeto",
@@ -1193,7 +1211,7 @@
       "offline",
       "case",
       "gabinete",
-    ].some((term) => query.includes(term));
+    ].some((term) => termMatchScore(query, queryWords, term, new Set()) > 0);
 
     const item = retrieveFrom(knowledgeBase, text, hasProjectSignal ? 1 : 3);
     if (!hasProjectSignal && item?.title === "Resumo do projeto") return null;
