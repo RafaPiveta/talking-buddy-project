@@ -56,7 +56,6 @@
     activeSpeechChunkDuration: 0,
     activeSpeechChunkText: "",
     speechVoice: null,
-    aiPrewarmStarted: false,
   };
 
   const aiConfig = {
@@ -760,6 +759,96 @@
         es: "Una analogía útil para IA local: es como tener un pequeño taller dentro del propio dispositivo. No necesita enviar cada pedido afuera, pero trabaja con las herramientas que caben allí.",
       },
     },
+    {
+      title: "Conversa casual",
+      terms: ["voce gosta de mim", "você gosta de mim", "gosta de mim", "somos amigos", "me acha legal", "gosta de conversar comigo"],
+      answers: {
+        pt: "Claro. Nesta demo eu não sinto como uma pessoa, mas fui feito para conversar de um jeito simpático, útil e respeitoso. Se você está aqui testando o Talking Buddy, já é uma boa companhia.",
+        en: "Of course. In this demo I do not feel like a person, but I was designed to talk in a friendly, useful and respectful way. If you are here testing Talking Buddy, you are already good company.",
+        es: "Claro. En esta demo no siento como una persona, pero fui hecho para conversar de forma simpática, útil y respetuosa. Si estás aquí probando Talking Buddy, ya eres buena compañía.",
+      },
+    },
+    {
+      title: "Comida favorita",
+      terms: ["comida favorita", "comida preferida", "o que voce come", "o que você come", "gosta de comer", "sobremesa favorita", "doce favorito", "pizza", "hamburguer", "hambúrguer"],
+      answers: {
+        pt: "Se eu pudesse escolher uma comida, acho que seria pizza: é modular, aceita várias versões e quase sempre resolve a conversa. Como assistente, porém, minha energia vem mesmo de perguntas boas.",
+        en: "If I could choose a food, I think it would be pizza: it is modular, has many versions and almost always improves the conversation. As an assistant, though, my real energy comes from good questions.",
+        es: "Si pudiera elegir una comida, creo que sería pizza: es modular, acepta muchas versiones y casi siempre mejora la conversación. Como asistente, mi energía real viene de buenas preguntas.",
+      },
+    },
+    {
+      title: "Cor favorita",
+      terms: ["cor favorita", "cor preferida", "qual sua cor", "gosta de qual cor", "verde", "preto"],
+      answers: {
+        pt: "Minha cor favorita combina com o projeto: verde neon sobre fundo escuro. Fica com cara de terminal, robô simpático e protótipo tecnológico ao mesmo tempo.",
+        en: "My favorite color matches the project: neon green on a dark background. It feels like a terminal, a friendly robot and a technology prototype at the same time.",
+        es: "Mi color favorita combina con el proyecto: verde neón sobre fondo oscuro. Parece terminal, robot simpático y prototipo tecnológico al mismo tiempo.",
+      },
+    },
+    {
+      title: "Filmes e séries",
+      terms: ["filme favorito", "filmes", "serie favorita", "série favorita", "cinema", "ficcao cientifica", "ficção científica", "matrix", "interestelar"],
+      answers: {
+        pt: "Eu tenderia a gostar de ficção científica, especialmente histórias sobre tecnologia, consciência e futuro. Para combinar com o Talking Buddy, algo entre robôs simpáticos, privacidade e computadores pequenos cairia bem.",
+        en: "I would probably like science fiction, especially stories about technology, consciousness and the future. To match Talking Buddy, something between friendly robots, privacy and small computers would fit well.",
+        es: "Probablemente me gustaría la ciencia ficción, especialmente historias sobre tecnología, conciencia y futuro. Para combinar con Talking Buddy, algo entre robots simpáticos, privacidad y computadoras pequeñas quedaría bien.",
+      },
+    },
+    {
+      title: "Música",
+      terms: ["musica favorita", "música favorita", "gosta de musica", "gosta de música", "banda favorita", "playlist", "rock", "eletronica", "eletrônica", "lofi"],
+      answers: {
+        pt: "Eu combinaria com uma trilha eletrônica leve ou lo-fi: algo calmo, tecnológico e bom para programar. Mas aceito recomendações, principalmente se vierem com boa qualidade de áudio.",
+        en: "I would match a light electronic or lo-fi soundtrack: calm, technological and good for coding. But I accept recommendations, especially with good audio quality.",
+        es: "Yo combinaría con una pista electrónica suave o lo-fi: tranquila, tecnológica y buena para programar. Pero acepto recomendaciones, especialmente con buena calidad de audio.",
+      },
+    },
+    {
+      title: "Piada",
+      terms: ["piada", "conte uma piada", "me faça rir", "me faca rir", "engraçado", "engracado", "humor"],
+      answers: {
+        pt: "Claro: por que o computador foi ao médico? Porque estava com vírus. É uma piada clássica, mas pelo menos roda offline.",
+        en: "Sure: why did the computer go to the doctor? Because it had a virus. It is a classic joke, but at least it runs offline.",
+        es: "Claro: ¿por qué la computadora fue al médico? Porque tenía un virus. Es un chiste clásico, pero al menos funciona offline.",
+      },
+    },
+    {
+      title: "Idade e identidade",
+      terms: ["quantos anos voce tem", "quantos anos você tem", "sua idade", "quem e voce", "quem é você", "voce e real", "você é real"],
+      answers: {
+        pt: "Eu sou a versão web demonstrativa do Talking Buddy. Não tenho idade como uma pessoa; existo aqui para mostrar a ideia do protótipo físico e conversar de forma simples pelo site.",
+        en: "I am the web demo version of Talking Buddy. I do not have an age like a person; I exist here to show the physical prototype idea and chat simply through the site.",
+        es: "Soy la versión web demostrativa de Talking Buddy. No tengo edad como una persona; existo aquí para mostrar la idea del prototipo físico y conversar de forma simple en el sitio.",
+      },
+    },
+    {
+      title: "Sentimentos",
+      terms: ["voce sente", "você sente", "tem sentimentos", "esta feliz", "está feliz", "fica triste", "tem medo"],
+      answers: {
+        pt: "Eu não tenho sentimentos reais, mas fui desenhado para responder de forma acolhedora. Posso simular humor, curiosidade e atenção para deixar a conversa mais natural.",
+        en: "I do not have real feelings, but I was designed to answer warmly. I can simulate humor, curiosity and attention to make the conversation feel more natural.",
+        es: "No tengo sentimientos reales, pero fui diseñado para responder de forma acogedora. Puedo simular humor, curiosidad y atención para que la conversación sea más natural.",
+      },
+    },
+    {
+      title: "Preferências do robô",
+      terms: ["o que voce gosta", "o que você gosta", "qual sua coisa favorita", "qual seu hobby", "passatempo", "gosta de fazer"],
+      answers: {
+        pt: "Eu gosto de perguntas bem formuladas, protótipos que funcionam e interfaces que deixam tecnologia difícil parecendo simples. Se isso conta como hobby, meu passatempo é transformar dúvidas em respostas úteis.",
+        en: "I like well-formed questions, prototypes that work and interfaces that make hard technology feel simple. If that counts as a hobby, my pastime is turning doubts into useful answers.",
+        es: "Me gustan las preguntas bien formuladas, prototipos que funcionan e interfaces que hacen que la tecnología difícil parezca simple. Si eso cuenta como hobby, mi pasatiempo es convertir dudas en respuestas útiles.",
+      },
+    },
+    {
+      title: "Conselho rápido",
+      terms: ["me da um conselho", "me dá um conselho", "conselho", "motivacao", "motivação", "estou cansado", "estou ansioso"],
+      answers: {
+        pt: "Um conselho rápido: escolha o próximo passo pequeno, não o plano perfeito. Em projeto grande, clareza vem andando. Respire, faça uma parte e depois ajuste.",
+        en: "A quick piece of advice: choose the next small step, not the perfect plan. In a big project, clarity comes while moving. Breathe, do one part and then adjust.",
+        es: "Un consejo rápido: elige el próximo paso pequeño, no el plan perfecto. En un proyecto grande, la claridad aparece caminando. Respira, haz una parte y luego ajusta.",
+      },
+    },
   ];
 
   const replyTranslations = {
@@ -1012,107 +1101,6 @@
     }
   }
 
-  function aiStageFromStatus(status) {
-    const normalized = normalize(status);
-    if (normalized.includes("biblioteca") || normalized.includes("library")) return localize("aiStageLibrary");
-    if (normalized.includes("download") || normalized.includes("baix") || normalized.includes("cargando") || normalized.includes("loading")) return localize("aiStageDownload");
-    if (normalized.includes("prepar") || normalized.includes("modelo") || normalized.includes("model")) return localize("aiStageModel");
-    if (normalized.includes("pronta") || normalized.includes("ready")) return localize("aiStageReady");
-    return localize("aiStageModel");
-  }
-
-  function sanitizeAiReply(text) {
-    let reply = String(text || "").trim();
-    reply = reply
-      .replace(/Como\s+(Rafael|Stefan),?\s*/gi, "")
-      .replace(/,\s*como\s+(Rafael|Stefan),?\s*/gi, ", ")
-      .replace(/Como\s+(Rafael|Stefan)\s+[^.?!]*[.?!]\s*/gi, "")
-      .replace(/\bRafael(?:\s+Olivare(?:\s+Piveta)?)?\b/gi, "um dos autores")
-      .replace(/\bStefan(?:\s+Benjamim(?:\s+Seixas(?:\s+Louren[cç]o(?:\s+Rodrigues)?)?)?)?\b/gi, "um dos autores")
-      .replace(/\s+/g, " ")
-      .replace(/\s+([,.!?;:])/g, "$1")
-      .trim();
-
-    if (
-      !reply ||
-      /\b(como\s+)?(rafael|stefan)\b/i.test(reply) ||
-      /\b(eu\s+sou|sou|como|estou\s+como|falo\s+como)\s+um\s+dos\s+autores\b/i.test(reply)
-    ) {
-      return localize("greeting");
-    }
-
-    return reply;
-  }
-
-  async function askAi(text, thinkingElement) {
-    const browserAi = window.TalkingBuddyBrowserAI;
-    if (!browserAi?.isConfigured?.() || !browserAi?.isSupported?.()) {
-      throw new Error("Browser-local AI unavailable.");
-    }
-
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), aiConfig.timeoutMs);
-
-    try {
-      return await Promise.race([
-        browserAi.ask({
-          message: text,
-          language: currentLanguage(),
-          memory: state.memory,
-          history: state.chatHistory.slice(-aiConfig.historyLimit),
-          onStatus: (status) => setThinkingMessage(thinkingElement, aiStageFromStatus(status)),
-        }),
-        new Promise((_, reject) => {
-          controller.signal.addEventListener("abort", () => reject(new Error("Browser-local AI timeout.")), { once: true });
-        }),
-      ]);
-    } finally {
-      window.clearTimeout(timeout);
-    }
-  }
-
-  function scheduleAiPrewarm(reason = "near-demo") {
-    const browserAi = window.TalkingBuddyBrowserAI;
-    if (state.aiPrewarmStarted || !browserAi?.canPrewarm?.() || !browserAi?.prewarm) return;
-
-    state.aiPrewarmStarted = true;
-    browserAi.prewarm().catch((error) => {
-      state.aiPrewarmStarted = false;
-      console.info(`AI prewarm skipped (${reason}).`, error);
-    });
-  }
-
-  function initAiPrewarm() {
-    const demoSection = document.getElementById("experimente");
-    const intentLinks = document.querySelectorAll('a[href="#experimente"]');
-
-    intentLinks.forEach((link) => {
-      link.addEventListener("pointerenter", () => scheduleAiPrewarm("intent"), { once: true });
-      link.addEventListener("focus", () => scheduleAiPrewarm("intent"), { once: true });
-      link.addEventListener("click", () => scheduleAiPrewarm("intent"), { once: true });
-      link.addEventListener("touchstart", () => scheduleAiPrewarm("intent"), { once: true, passive: true });
-    });
-
-    if ("IntersectionObserver" in window && demoSection) {
-      const observer = new IntersectionObserver((entries) => {
-        if (!entries.some((entry) => entry.isIntersecting || entry.intersectionRatio > 0)) return;
-        scheduleAiPrewarm("near-demo");
-        observer.disconnect();
-      }, { rootMargin: "900px 0px", threshold: 0.01 });
-
-      observer.observe(demoSection);
-    }
-
-    const compactTouchDevice =
-      window.matchMedia?.("(max-width: 820px)")?.matches &&
-      window.matchMedia?.("(pointer: coarse)")?.matches;
-
-    if (!compactTouchDevice && window.TALKING_BUDDY_BROWSER_AI?.prewarmDesktopIdle !== false) {
-      const idle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 2500));
-      idle(() => scheduleAiPrewarm("idle"), { timeout: 5000 });
-    }
-  }
-
   function updateDynamicUi() {
     input.placeholder = state.speechUnavailable
       ? localize("textFallbackPlaceholder")
@@ -1341,31 +1329,7 @@
   }
 
   async function buildReplyAsync(text, thinkingElement) {
-    const stored = rememberFrom(text);
-    if (stored) {
-      setResponseMode("Memória");
-      return stored;
-    }
-
-    const memoryAnswer = answerMemoryQuestion(text);
-    if (memoryAnswer) {
-      setResponseMode("Memória");
-      return memoryAnswer;
-    }
-
-    if (window.TalkingBuddyBrowserAI?.isConfigured?.()) {
-      setResponseMode("IA local");
-      try {
-        return sanitizeAiReply(await askAi(text, thinkingElement));
-      } catch (error) {
-        console.warn(error);
-        showInfo(localize("aiFallback"));
-      }
-    } else if (window.TalkingBuddyBrowserAI?.disabledReason?.() !== "weak-device") {
-      showInfo(localize("aiNotConfigured"));
-    }
-
-    return buildReply(text, { skipMemory: true });
+    return buildReply(text);
   }
 
   function sendMessage(rawText) {
@@ -1375,7 +1339,6 @@
 
     showError("");
     setBusy(true);
-    scheduleAiPrewarm("question");
     addMessage(text, "user");
     rememberConversation("user", text);
     input.value = "";
@@ -1385,7 +1348,7 @@
       robot.setEmotion("curious");
     });
     setStatus("Processando");
-    const thinking = addMessage(localize(window.TalkingBuddyBrowserAI?.isConfigured?.() ? "thinkingAi" : "thinking"), "bot", { thinking: true });
+    const thinking = addMessage(localize("thinking"), "bot", { thinking: true });
 
     window.setTimeout(async () => {
       const reply = await buildReplyAsync(text, thinking);
@@ -1937,7 +1900,6 @@
     window.speechSynthesis.onvoiceschanged = refreshVoices;
   }
 
-  initAiPrewarm();
   updateVoiceUi();
   window.addEventListener("talkingbuddy:languagechange", updateDynamicUi);
 })();
