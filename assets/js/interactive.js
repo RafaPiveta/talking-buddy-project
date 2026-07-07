@@ -56,6 +56,7 @@
     activeSpeechChunkDuration: 0,
     activeSpeechChunkText: "",
     speechVoice: null,
+    aiPrewarmStarted: false,
   };
 
   const aiConfig = {
@@ -1070,6 +1071,48 @@
     }
   }
 
+  function scheduleAiPrewarm(reason = "near-demo") {
+    const browserAi = window.TalkingBuddyBrowserAI;
+    if (state.aiPrewarmStarted || !browserAi?.canPrewarm?.() || !browserAi?.prewarm) return;
+
+    state.aiPrewarmStarted = true;
+    browserAi.prewarm().catch((error) => {
+      state.aiPrewarmStarted = false;
+      console.info(`AI prewarm skipped (${reason}).`, error);
+    });
+  }
+
+  function initAiPrewarm() {
+    const demoSection = document.getElementById("experimente");
+    const intentLinks = document.querySelectorAll('a[href="#experimente"]');
+
+    intentLinks.forEach((link) => {
+      link.addEventListener("pointerenter", () => scheduleAiPrewarm("intent"), { once: true });
+      link.addEventListener("focus", () => scheduleAiPrewarm("intent"), { once: true });
+      link.addEventListener("click", () => scheduleAiPrewarm("intent"), { once: true });
+      link.addEventListener("touchstart", () => scheduleAiPrewarm("intent"), { once: true, passive: true });
+    });
+
+    if ("IntersectionObserver" in window && demoSection) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting || entry.intersectionRatio > 0)) return;
+        scheduleAiPrewarm("near-demo");
+        observer.disconnect();
+      }, { rootMargin: "900px 0px", threshold: 0.01 });
+
+      observer.observe(demoSection);
+    }
+
+    const compactTouchDevice =
+      window.matchMedia?.("(max-width: 820px)")?.matches &&
+      window.matchMedia?.("(pointer: coarse)")?.matches;
+
+    if (!compactTouchDevice && window.TALKING_BUDDY_BROWSER_AI?.prewarmDesktopIdle !== false) {
+      const idle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 2500));
+      idle(() => scheduleAiPrewarm("idle"), { timeout: 5000 });
+    }
+  }
+
   function updateDynamicUi() {
     input.placeholder = state.speechUnavailable
       ? localize("textFallbackPlaceholder")
@@ -1332,6 +1375,7 @@
 
     showError("");
     setBusy(true);
+    scheduleAiPrewarm("question");
     addMessage(text, "user");
     rememberConversation("user", text);
     input.value = "";
@@ -1893,6 +1937,7 @@
     window.speechSynthesis.onvoiceschanged = refreshVoices;
   }
 
+  initAiPrewarm();
   updateVoiceUi();
   window.addEventListener("talkingbuddy:languagechange", updateDynamicUi);
 })();

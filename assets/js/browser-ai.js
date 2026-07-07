@@ -1,6 +1,7 @@
 // Browser-only AI layer. It runs an open model in the user's browser through WebLLM/WebGPU.
 (function () {
   const DEFAULT_MODEL = "Llama-3.2-1B-Instruct-q4f16_1-MLC";
+  const DEFAULT_LIGHT_MODEL = "SmolLM2-360M-Instruct-q4f16_1-MLC";
   const DEFAULT_CDN = "https://esm.run/@mlc-ai/web-llm";
 
   const PROJECT_CONTEXTS = {
@@ -31,13 +32,34 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
     engine: null,
     loading: null,
     model: "",
+    lastStatus: "",
+    statusListeners: new Set(),
   };
+
+  function prefersLightModel() {
+    const memory = Number(navigator.deviceMemory || 0);
+    const cores = Number(navigator.hardwareConcurrency || 0);
+    const compactScreen = window.matchMedia?.("(max-width: 820px)")?.matches;
+    const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
+
+    return Boolean(
+      (memory && memory <= 4) ||
+      (cores && cores <= 4) ||
+      (compactScreen && coarsePointer)
+    );
+  }
 
   function config() {
     const userConfig = window.TALKING_BUDDY_BROWSER_AI || {};
+    const preferredModel = userConfig.preferredModel || DEFAULT_MODEL;
+    const lightModel = userConfig.lightModel || DEFAULT_LIGHT_MODEL;
+    const modelSetting = userConfig.model || "auto";
+
     return {
       enabled: userConfig.enabled !== false,
-      model: userConfig.model || DEFAULT_MODEL,
+      model: modelSetting === "auto" ? (prefersLightModel() ? lightModel : preferredModel) : modelSetting,
+      prewarm: userConfig.prewarm !== false,
+      prewarmDesktopIdle: userConfig.prewarmDesktopIdle !== false,
       cdn: userConfig.cdn || DEFAULT_CDN,
     };
   }
@@ -139,39 +161,74 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
       .filter((item) => item.content);
   }
 
-  function report(onStatus, text) {
-    if (typeof onStatus === "function" && text) onStatus(text);
+  function watchStatus(onStatus) {
+    if (typeof onStatus !== "function") return () => {};
+    state.statusListeners.add(onStatus);
+    if (state.lastStatus) onStatus(state.lastStatus);
+    return () => state.statusListeners.delete(onStatus);
+  }
+
+  function report(text) {
+    if (!text) return;
+    state.lastStatus = text;
+    state.statusListeners.forEach((listener) => {
+      try {
+        listener(text);
+      } catch (error) {
+        console.warn(error);
+      }
+    });
   }
 
   async function ensureEngine(onStatus) {
+    const stopWatching = watchStatus(onStatus);
     const currentConfig = config();
-    if (!currentConfig.enabled) throw new Error("Browser AI disabled.");
-    if (!hasWebGpu()) throw new Error("WebGPU unavailable.");
-    if (state.engine && state.model === currentConfig.model) return state.engine;
-    if (state.loading) return state.loading;
-
-    state.model = currentConfig.model;
-    state.loading = (async () => {
-      report(onStatus, "carregando biblioteca de IA local...");
-      const webllm = await import(currentConfig.cdn);
-      report(onStatus, "preparando modelo local no navegador...");
-
-      const engine = await webllm.CreateMLCEngine(currentConfig.model, {
-        initProgressCallback: (progress) => {
-          report(onStatus, progress?.text || "baixando modelo local...");
-        },
-      });
-
-      state.engine = engine;
-      report(onStatus, "IA local pronta.");
-      return engine;
-    })();
+    let createdLoading = false;
 
     try {
+      if (!currentConfig.enabled) throw new Error("Browser AI disabled.");
+      if (!hasWebGpu()) throw new Error("WebGPU unavailable.");
+      if (state.engine && state.model === currentConfig.model) {
+        report("IA local pronta.");
+        return state.engine;
+      }
+      if (state.loading) return await state.loading;
+
+      state.model = currentConfig.model;
+      createdLoading = true;
+      state.loading = (async () => {
+        report("carregando biblioteca de IA local...");
+        const webllm = await import(currentConfig.cdn);
+        report("preparando modelo local no navegador...");
+
+        const engine = await webllm.CreateMLCEngine(currentConfig.model, {
+          initProgressCallback: (progress) => {
+            report(progress?.text || "baixando modelo local...");
+          },
+        });
+
+        state.engine = engine;
+        report("IA local pronta.");
+        return engine;
+      })();
+
       return await state.loading;
     } finally {
-      state.loading = null;
+      if (createdLoading) state.loading = null;
+      stopWatching();
     }
+  }
+
+  function canPrewarm() {
+    const currentConfig = config();
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    return Boolean(currentConfig.enabled && currentConfig.prewarm && hasWebGpu() && !connection?.saveData);
+  }
+
+  async function prewarm({ onStatus } = {}) {
+    if (!canPrewarm()) return false;
+    await ensureEngine(onStatus);
+    return true;
   }
 
   async function ask({ message, language = "pt", memory = {}, history = [], onStatus } = {}) {
@@ -195,7 +252,9 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
   window.TalkingBuddyBrowserAI = {
     isConfigured: () => config().enabled,
     isSupported: hasWebGpu,
+    canPrewarm,
     model: () => config().model,
+    prewarm,
     ask,
   };
 })();
