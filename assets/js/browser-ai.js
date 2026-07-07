@@ -39,13 +39,33 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
   function prefersLightModel() {
     const memory = Number(navigator.deviceMemory || 0);
     const cores = Number(navigator.hardwareConcurrency || 0);
-    const compactScreen = window.matchMedia?.("(max-width: 820px)")?.matches;
-    const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
 
     return Boolean(
       (memory && memory <= 4) ||
-      (cores && cores <= 4) ||
-      (compactScreen && coarsePointer)
+      (cores && cores <= 4)
+    );
+  }
+
+  function isCompactTouchDevice() {
+    return Boolean(
+      window.matchMedia?.("(max-width: 920px)")?.matches &&
+      window.matchMedia?.("(pointer: coarse)")?.matches
+    );
+  }
+
+  function shouldUseLocalBaseOnly(userConfig = window.TALKING_BUDDY_BROWSER_AI || {}) {
+    const memory = Number(navigator.deviceMemory || 0);
+    const cores = Number(navigator.hardwareConcurrency || 0);
+    const minMemory = Number(userConfig.minimumDeviceMemoryGB || 4);
+    const minCores = Number(userConfig.minimumHardwareConcurrency || 4);
+
+    return Boolean(
+      userConfig.localBaseOnlyOnWeakDevices !== false &&
+      (
+        isCompactTouchDevice() ||
+        (memory && memory < minMemory) ||
+        (cores && cores < minCores)
+      )
     );
   }
 
@@ -54,9 +74,11 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
     const preferredModel = userConfig.preferredModel || DEFAULT_MODEL;
     const lightModel = userConfig.lightModel || DEFAULT_LIGHT_MODEL;
     const modelSetting = userConfig.model || "auto";
+    const localBaseOnly = shouldUseLocalBaseOnly(userConfig);
 
     return {
-      enabled: userConfig.enabled !== false,
+      enabled: userConfig.enabled !== false && !localBaseOnly,
+      disabledReason: localBaseOnly ? "weak-device" : "",
       model: modelSetting === "auto" ? (prefersLightModel() ? lightModel : preferredModel) : modelSetting,
       prewarm: userConfig.prewarm !== false,
       prewarmDesktopIdle: userConfig.prewarmDesktopIdle !== false,
@@ -253,6 +275,7 @@ Los resultados del TCC incluyen 222 minutos de autonomia, respuesta del modelo y
     isConfigured: () => config().enabled,
     isSupported: hasWebGpu,
     canPrewarm,
+    disabledReason: () => config().disabledReason,
     model: () => config().model,
     prewarm,
     ask,

@@ -1361,7 +1361,7 @@
         console.warn(error);
         showInfo(localize("aiFallback"));
       }
-    } else {
+    } else if (window.TalkingBuddyBrowserAI?.disabledReason?.() !== "weak-device") {
       showInfo(localize("aiNotConfigured"));
     }
 
