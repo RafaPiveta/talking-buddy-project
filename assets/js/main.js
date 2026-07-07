@@ -47,6 +47,69 @@ const initAutoplayVideos = () => {
 
 initAutoplayVideos();
 
+const initMobileNav = () => {
+  const nav = document.querySelector('.nav');
+  const toggle = document.querySelector('.nav__menu-toggle');
+  const menu = document.getElementById('site-menu');
+  if (!nav || !toggle || !menu) return;
+
+  const desktopQuery = window.matchMedia('(min-width: 981px)');
+  const labels = {
+    pt: { open: 'Abrir menu', close: 'Fechar menu' },
+    en: { open: 'Open menu', close: 'Close menu' },
+    es: { open: 'Abrir menú', close: 'Cerrar menú' },
+  };
+
+  const currentLanguageKey = () => {
+    const lang = document.documentElement.lang || 'pt-BR';
+    if (lang.startsWith('en')) return 'en';
+    if (lang.startsWith('es')) return 'es';
+    return 'pt';
+  };
+
+  const setMenuOpen = (open) => {
+    const label = labels[currentLanguageKey()] || labels.pt;
+    nav.classList.toggle('is-menu-open', open);
+    toggle.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? label.close : label.open);
+  };
+
+  toggle.addEventListener('click', () => {
+    setMenuOpen(!nav.classList.contains('is-menu-open'));
+  });
+
+  menu.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setMenuOpen(false);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!nav.classList.contains('is-menu-open')) return;
+    if (nav.contains(event.target)) return;
+    setMenuOpen(false);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenuOpen(false);
+  });
+
+  const closeOnDesktop = (event) => {
+    if (event.matches) setMenuOpen(false);
+  };
+
+  if (typeof desktopQuery.addEventListener === 'function') {
+    desktopQuery.addEventListener('change', closeOnDesktop);
+  } else if (typeof desktopQuery.addListener === 'function') {
+    desktopQuery.addListener(closeOnDesktop);
+  }
+
+  window.addEventListener('talkingbuddy:languagechange', () => {
+    setMenuOpen(nav.classList.contains('is-menu-open'));
+  });
+};
+
+initMobileNav();
+
 // Technical term tooltips are rendered outside their section so they cannot be clipped by images or cards.
 const initTermTooltips = () => {
   const terms = Array.from(document.querySelectorAll('.term[data-tip]'));
