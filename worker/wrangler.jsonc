@@ -1,0 +1,24 @@
+{
+  // Cloudflare Worker config for the Talking Buddy demo chat proxy.
+  // Deploy from inside this folder:  npx wrangler deploy
+  // The GROQ_API_KEY is NOT stored here — it is set once with:
+  //   npx wrangler secret put GROQ_API_KEY
+  "name": "talking-buddy-proxy",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-11",
+
+  // Per-IP rate limit (defense-in-depth). Native Workers binding — no
+  // provisioning needed; namespace_id is just an arbitrary integer string.
+  // "period" MUST be 10 or 60 (seconds). Tune "limit" as you like.
+  // If a deploy ever rejects this block, delete it and redeploy — the
+  // Worker still works (the code treats the limiter as optional).
+  "ratelimits": [
+    {
+      "name": "RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 12, "period": 60 }
+    }
+  ],
+
+  "observability": { "enabled": true }
+}
