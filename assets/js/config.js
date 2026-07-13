@@ -1,13 +1,18 @@
-// Browser-local AI is intentionally disabled. The demo uses only the local answer base.
+// Public front-end config for the "Experimente" demo. No secrets here.
+
+// Live chat proxy (Cloudflare Worker). It holds the Groq API key server-side
+// and forwards chat requests; the browser only talks to this URL. Backend
+// lives in /worker. Safe to edit and commit. If the site moves to a custom
+// domain, also add that origin to ALLOWED_ORIGINS in worker/src/index.js.
+window.TALKING_BUDDY_CHAT = {
+  enabled: true,
+  proxyUrl: "https://talking-buddy-proxy.waifuisalie.workers.dev",
+  timeoutMs: 25000,
+};
+
+// Browser-local AI (WebLLM) is disabled — kept for reference only, not loaded.
 window.TALKING_BUDDY_BROWSER_AI = {
   enabled: false,
   model: "auto",
-  preferredModel: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
-  lightModel: "SmolLM2-360M-Instruct-q4f16_1-MLC",
-  localBaseOnlyOnWeakDevices: true,
-  minimumDeviceMemoryGB: 4,
-  minimumHardwareConcurrency: 4,
-  prewarm: false,
-  prewarmDesktopIdle: false,
   cdn: "https://esm.run/@mlc-ai/web-llm",
 };

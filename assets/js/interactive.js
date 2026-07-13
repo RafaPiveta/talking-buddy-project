@@ -1222,7 +1222,7 @@
     return retrieveFrom(generalKnowledgeBase, text, 2);
   }
 
-  function buildReply(text, options = {}) {
+  function buildLocalReply(text, options = {}) {
     if (!options.skipMemory) {
       const stored = rememberFrom(text);
       if (stored) {
@@ -1265,14 +1265,12 @@
       return localizedAnswer(item);
     }
 
-    const generalItem = retrieveGeneral(text);
-    if (generalItem) {
-      setResponseMode(generalItem.title);
-      return localizedAnswer(generalItem);
-    }
-
-    setResponseMode("Resposta local");
-    return buildHelpfulFallback(text);
+    // No authoritative local answer — signal the async layer to try the live
+    // model. The broad general-knowledge base (retrieveGeneral) is intentionally
+    // NOT consulted here; it would swallow open-ended questions (e.g. anything
+    // containing "explique") before Groq ever runs. It is used only as an
+    // offline fallback in buildReplyAsync.
+    return null;
   }
 
   function answerSimpleCalculation(text) {
@@ -1347,13 +1345,65 @@
   }
 
   async function buildReplyAsync(text, thinkingElement) {
-    return buildReply(text);
+    // 1) Authoritative local answers win: project facts (retrieve), memory,
+    //    calculator, greetings, translation intent.
+    const local = buildLocalReply(text);
+    if (local !== null) return local;
+
+    // 2) Everything open-ended goes to the live model via the Cloudflare proxy.
+    const remote = await fetchRemoteReply(text);
+    if (remote) {
+      setResponseMode("IA");
+      return remote;
+    }
+
+    // 3) Proxy unavailable / errored / quota hit -> offline safety net: the
+    //    curated general base first, then the generic helpful fallback.
+    const general = retrieveGeneral(text);
+    if (general) {
+      setResponseMode(general.title);
+      return localizedAnswer(general);
+    }
+    setResponseMode("Resposta local");
+    return buildHelpfulFallback(text);
+  }
+
+  async function fetchRemoteReply(text) {
+    const cfg = window.TALKING_BUDDY_CHAT || {};
+    if (!cfg.enabled || !cfg.proxyUrl) return null;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), cfg.timeoutMs || 25000);
+    try {
+      const response = await fetch(cfg.proxyUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          language: currentLanguage(),
+          // Exclude the current user turn (already appended) — sent as `message`.
+          history: state.chatHistory.slice(0, -1),
+        }),
+        signal: controller.signal,
+      });
+      if (!response.ok) return null;
+      const data = await response.json();
+      if (data && data.reply && !data.fallback) return String(data.reply).trim();
+      return null;
+    } catch (_) {
+      return null;
+    } finally {
+      window.clearTimeout(timer);
+    }
   }
 
   function sendMessage(rawText) {
     if (state.busy) return;
     const text = rawText.trim();
     if (!text) return;
+
+    // Interrupt any narration still playing from the previous answer.
+    if (state.speaking) stopSpeaking();
 
     showError("");
     setBusy(true);
@@ -1373,6 +1423,9 @@
       thinking.remove();
       addMessage(reply, "bot");
       rememberConversation("assistant", reply);
+      // Unlock input as soon as the answer is shown; narration plays in the
+      // background (and is interrupted if the user sends another message).
+      setBusy(false);
       speakReply(reply);
     }, 320);
   }
